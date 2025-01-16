@@ -13,13 +13,11 @@ from sqlalchemy.orm import relationship
 # Import your forms from the forms.py
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 import os 
-from dotenv import load_dotenv
 
-load_dotenv()
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 
@@ -46,7 +44,7 @@ gravatar = Gravatar(app,
 # CREATE DATABASE
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_PATH"]
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_PATH")
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
